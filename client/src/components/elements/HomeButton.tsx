@@ -1,11 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const HomeButton = () => {
+interface HomeButtonProps {
+  textColor?: string;
+  textSize?: string;
+}
+
+const HomeButton: React.FC<HomeButtonProps> = ({
+  textColor = "text-green-500",
+}) => {
   return (
     <Link
       to="/"
-      className="font-quicksand font-bold text-green-500 text-[2rem]"
+      className={`font-quicksand font-bold text-[2rem] ${textColor}`}
     >
       Bazar
     </Link>

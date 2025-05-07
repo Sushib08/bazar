@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/sections/Header";
 import Home from "./pages/Home";
+import Footer from "./components/sections/Footer";
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
           {/* Tu pourras ajouter d'autres routes ici */}
         </Routes>
       </main>
+      <Footer />
     </Router>
   );
 };
