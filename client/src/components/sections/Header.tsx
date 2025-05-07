@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header className={headerClasses}>
-      <div className="flex justify-between items-center mx-8">
+      <div className="flex justify-around items-center mx-8">
         <HomeButton />
         <div className="hidden lg:flex space-x-8">
           <NavLinksList className="text-lg font-bold" />
@@ -40,13 +40,13 @@ const Header = () => {
       </div>
 
       {isHomePage && (
-        <div className="mt-12 mx-12 flex justify-around">
+        <div className="mt-12 flex justify-center gap-[10rem]">
           <img
             src="./images/woman.webp"
             alt="woman"
-            className="w-72 h-auto hidden lg:block"
+            className="w-80 h-auto hidden lg:block"
           />
-          <div className="w-full lg:w-[26rem] flex flex-col justify-center items-center lg:items-start">
+          <div className="w-full lg:w-[22rem] flex flex-col justify-center items-center lg:items-start">
             <p className="text-2xl md:text-3xl lg:text-4xl font-bold font-quicksand text-gray-700 mb-6 text-center lg:text-left">
               Des Produits Frais Et Savoureux, Livrés Chez Vous Ou En Magasin.
             </p>
