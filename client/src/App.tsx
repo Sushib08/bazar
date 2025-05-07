@@ -3,15 +3,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/sections/Header";
 import Home from "./pages/Home";
 import Footer from "./components/sections/Footer";
+import LocalProducers from "./pages/LocalProducers";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Header />
-      <main className="p-6">
+      <main className="">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Tu pourras ajouter d'autres routes ici */}
+          <Route path="/producteurs" element={<LocalProducers />} />
         </Routes>
       </main>
       <Footer />

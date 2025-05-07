@@ -2,16 +2,12 @@ import { useState } from "react";
 import HomeButton from "../elements/HomeButton";
 import { navLinksFooter } from "../../data/navLinks";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAppStoreIos,
   faGooglePlay,
-  faSquareFacebook,
-  faSquareInstagram,
-  faSquareXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import Download from "../elements/Download";
-import SocialIcons from "../SocialIcons";
+import SocialIcons from "./SocialIcons";
 
 const Footer = () => {
   const [openAbout, setOpenAbout] = useState(false);
