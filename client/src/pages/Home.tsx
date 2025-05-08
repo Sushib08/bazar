@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import HighlightCard from "../components/elements/HighlightCard";
-import Card from "../components/elements/Card";
 import Partners from "../components/sections/Partners";
+import LoadMoreButton from "../components/elements/LoadMoreButton";
+import ProductsGrid from "../components/sections/ProductsGrid";
 
 const allProducts = Array.from({ length: 20 }, (_, i) => ({
   id: i,
@@ -57,44 +58,19 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* Section title */}
-      <div className="mb-8 flex justify-center">
-        <h3
-          className="relative text-3xl font-quicksand font-bold italic text-gray-700 inline-block 
-          after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 
-          after:-bottom-1 after:w-[60%] after:h-1 after:bg-green-500 after:rounded"
-        >
-          Tous Nos Produits
-        </h3>
-      </div>
+      {/* Product grid section */}
+      <ProductsGrid
+        title="Tous Nos Produits"
+        products={allProducts.slice(0, visibleCount)}
+      />
 
-      {/* Product grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-screen-xl mx-auto px-4 justify-items-center">
-        {allProducts
-          .slice(0, visibleCount)
-          .map(({ id, imageSrc, imageAlt, title, price }) => (
-            <Card
-              key={id}
-              imageSrc={imageSrc}
-              imageAlt={imageAlt}
-              title={title}
-              price={price}
-            />
-          ))}
-      </div>
+      {/* Load more button */}
+      <LoadMoreButton
+        onClick={loadMore}
+        isVisible={visibleCount < allProducts.length}
+      />
 
-      {/* Load more */}
-      {visibleCount < allProducts.length && (
-        <div className="flex justify-center my-8">
-          <button
-            onClick={loadMore}
-            className="px-6 py-2 border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-white transition"
-          >
-            Voir plus
-          </button>
-        </div>
-      )}
-
+      {/* Partner section */}
       <div className="mb-8 flex justify-center">
         <h3
           className="relative text-3xl font-quicksand font-bold italic text-gray-700 inline-block 
