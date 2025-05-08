@@ -1,7 +1,6 @@
 import React from "react";
 
 const Cart: React.FC = () => {
-  // Exemple de données en dur, tu les remplaceras plus tard par les vraies
   const cartItems = [
     {
       id: 1,
@@ -35,20 +34,20 @@ const Cart: React.FC = () => {
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex items-center gap-4 border-b pb-4"
+              className="flex flex-col sm:flex-row items-center gap-4 border-b pb-4"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-20 h-20 object-cover rounded"
+                className="w-24 h-24 object-cover rounded"
               />
-              <div className="flex-1">
+              <div className="flex-1 text-center sm:text-left">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
                 <p className="text-sm text-gray-600">
                   Quantité : {item.quantity}
                 </p>
               </div>
-              <p className="text-gray-700 font-medium">
+              <p className="text-gray-700 font-medium sm:text-right w-full sm:w-auto">
                 {(item.price * item.quantity).toFixed(2)} €
               </p>
             </div>
