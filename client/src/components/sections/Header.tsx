@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import HomeButton from "../elements/HomeButton";
 import Search from "../elements/Search";
-import Cart from "../elements/Cart";
+import CartButton from "../elements/CartButton";
 import Bars from "../elements/Bars";
 import ConnexionButton from "../elements/ConnexionButton";
 import Sidebar from "./Sidebar";
@@ -31,7 +31,7 @@ const Header = () => {
           <div className="hidden xs:block">
             <Search />
           </div>
-          <Cart />
+          <CartButton />
           <ConnexionButton />
           <div className="lg:hidden">
             <Bars toggleSidebar={toggleSidebar} />

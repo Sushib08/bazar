@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { slugify } from "../../utils/slugify";
 
 interface Category {
   id: number;
@@ -30,7 +32,7 @@ const categories: Category[] = [
   },
   {
     id: 5,
-    title: "Epicerie",
+    title: "Épicerie",
     imageSrc: "./images/products/epicerie.webp",
   },
 ];
@@ -38,7 +40,6 @@ const categories: Category[] = [
 const CategoriesGrid: React.FC = () => {
   return (
     <>
-      {/* Titre */}
       <div className="mb-8 flex justify-center">
         <h3
           className="relative text-3xl font-quicksand font-bold italic text-gray-700 inline-block 
@@ -49,12 +50,12 @@ const CategoriesGrid: React.FC = () => {
         </h3>
       </div>
 
-      {/* Grille de catégories */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-screen-xl mx-auto px-4 justify-items-center">
         {categories.map(({ id, imageSrc, imageAlt, title }) => (
-          <div
+          <Link
             key={id}
-            className="relative w-full max-w-sm overflow-hidden shadow-md"
+            to={`/produits/${slugify(title)}`}
+            className="relative w-full max-w-sm overflow-hidden shadow-md rounded-lg hover:scale-105 transition-transform"
           >
             <img
               src={imageSrc}
@@ -64,7 +65,7 @@ const CategoriesGrid: React.FC = () => {
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
               <span className="text-white text-xl font-semibold">{title}</span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>
