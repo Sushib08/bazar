@@ -4,6 +4,7 @@ import Header from "./components/sections/Header";
 import Home from "./pages/Home";
 import Footer from "./components/sections/Footer";
 import LocalProducers from "./pages/LocalProducers";
+import Products from "./pages/Products";
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
       <main className="">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/produits" element={<Products />} />
           <Route path="/producteurs" element={<LocalProducers />} />
         </Routes>
       </main>
