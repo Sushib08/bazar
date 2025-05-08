@@ -4,25 +4,20 @@ import dotenv from "dotenv";
 import app from "../app";
 import User from "../models/User";
 
-// Charge les variables d'environnement (.env)
 dotenv.config();
 
-// Allonge le timeout de Jest (Mongo Atlas peut être lent)
 jest.setTimeout(15000);
 
-// Connexion à la base de test
 beforeAll(async () => {
   const uri = process.env.MONGO_URI_TEST;
   if (!uri) throw new Error("MONGO_URI_TEST is not set in .env");
   await mongoose.connect(uri);
 });
 
-// Nettoie la base après chaque test
 afterEach(async () => {
   await User.deleteMany({});
 });
 
-// Ferme la base et supprime les données à la fin
 afterAll(async () => {
   await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
