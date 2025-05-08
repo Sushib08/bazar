@@ -18,4 +18,3 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
-// Handle unhandled promise rejections
