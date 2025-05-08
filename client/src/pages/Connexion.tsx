@@ -1,19 +1,51 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext"; // contexte global
 
 const Connexion: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const { login } = useUser(); // récupère la fonction login du contexte
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!email || !password) {
       setError("Veuillez remplir tous les champs.");
       return;
     }
-    setError("");
-    console.log("Connexion avec :", { email, password });
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Erreur de connexion.");
+        setSuccess("");
+      } else {
+        // ✅ stocke dans le contexte et localStorage
+        login({
+          firstName: data.user.firstName,
+          token: data.token,
+        });
+
+        setError("");
+        setSuccess("Connexion réussie !");
+        navigate("/"); // redirection vers la home
+      }
+    } catch (err) {
+      setError("Une erreur est survenue.");
+    }
   };
 
   return (
@@ -23,6 +55,9 @@ const Connexion: React.FC = () => {
         className="w-full max-w-md p-6 bg-white rounded-lg shadow-md space-y-4"
       >
         <h2 className="text-2xl font-bold text-center">Connexion</h2>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {success && <p className="text-green-600 text-sm">{success}</p>}
 
         <input
           type="email"
@@ -39,8 +74,6 @@ const Connexion: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full border p-2 rounded"
         />
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           type="submit"
