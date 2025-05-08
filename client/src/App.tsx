@@ -9,6 +9,7 @@ import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import Cart from "./pages/Cart";
 import CategoryPage from "./pages/CategoryPage";
+import Store from "./pages/Store";
 
 const App: React.FC = () => {
   return (
@@ -18,11 +19,12 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/produits" element={<Products />} />
+          <Route path="/produits/:category" element={<CategoryPage />} />
           <Route path="/producteurs" element={<LocalProducers />} />
+          <Route path="/magasins" element={<Store />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/panier" element={<Cart />} />
-          <Route path="/produits/:category" element={<CategoryPage />} />
         </Routes>
       </main>
       <Footer />
