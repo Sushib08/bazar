@@ -4,8 +4,9 @@ import Partners from "../components/sections/Partners";
 import LoadMoreButton from "../components/elements/LoadMoreButton";
 import ProductsGrid from "../components/sections/ProductsGrid";
 
+// Données mock avec id converti en string pour compatibilité avec ProductsGrid
 const allProducts = Array.from({ length: 20 }, (_, i) => ({
-  id: i,
+  id: i.toString(), // ← ici le fix
   imageSrc: "./images/home/fraises.webp",
   imageAlt: "fraises",
   title: `Gariguettes ${i + 1}`,
@@ -42,7 +43,6 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      {/* Promo section */}
       <div className="my-12 mx-4 md:mx-12 flex flex-col md:flex-row justify-between gap-12">
         <HighlightCard
           label="Promo"
@@ -58,19 +58,16 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* Product grid section */}
       <ProductsGrid
         title="Tous Nos Produits"
         products={allProducts.slice(0, visibleCount)}
       />
 
-      {/* Load more button */}
       <LoadMoreButton
         onClick={loadMore}
         isVisible={visibleCount < allProducts.length}
       />
 
-      {/* Partner section */}
       <div className="mb-8 flex justify-center">
         <h3
           className="relative text-3xl font-quicksand font-bold italic text-gray-700 inline-block 

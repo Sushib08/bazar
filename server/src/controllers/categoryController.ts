@@ -1,50 +1,24 @@
 import { Request, Response } from "express";
 import Category from "../models/Category";
 
-export const getCategories = async (_req: Request, res: Response) => {
+export const getAllCategories = async (_req: Request, res: Response) => {
   try {
-    const categories = await Category.find();
-    res.json(categories);
+    const categories = await Category.find().sort({ title: 1 });
+    res.status(200).json(categories);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching categories", error });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
 
-export const seedCategories = async (_req: Request, res: Response) => {
+export const getCategoryBySlug = async (req: Request, res: Response) => {
+  const { slug } = req.params;
   try {
-    await Category.deleteMany();
-
-    const initialCategories = [
-      {
-        title: "Fruits & Légumes",
-        imageSrc: "./images/products/legumes.webp",
-        imageAlt: "Fruits et légumes",
-      },
-      {
-        title: "Crèmerie",
-        imageSrc: "./images/products/fromage.webp",
-        imageAlt: "Fromages et laitages",
-      },
-      {
-        title: "Charcuterie",
-        imageSrc: "./images/products/charcuterie.webp",
-        imageAlt: "Produits de charcuterie",
-      },
-      {
-        title: "Boissons",
-        imageSrc: "./images/products/boisson.webp",
-        imageAlt: "Boissons fraîches",
-      },
-      {
-        title: "Épicerie",
-        imageSrc: "./images/products/epicerie.webp",
-        imageAlt: "Épicerie fine",
-      },
-    ];
-
-    await Category.insertMany(initialCategories);
-    res.status(201).json({ message: "Categories seeded successfully" });
-  } catch (err) {
-    res.status(500).json({ message: "Seeding failed", error: err });
+    const category = await Category.findOne({ slug });
+    if (!category) {
+      return res.status(404).json({ message: "Catégorie non trouvée" });
+    }
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };

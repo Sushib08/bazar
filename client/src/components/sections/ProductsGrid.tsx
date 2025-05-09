@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../elements/Card";
 
 interface Product {
-  id: number;
+  id: string;
   imageSrc: string;
   imageAlt?: string;
   title: string;
@@ -17,7 +17,6 @@ interface ProductsGridProps {
 const ProductsGrid: React.FC<ProductsGridProps> = ({ title, products }) => {
   return (
     <>
-      {/* Titre */}
       <div className="mb-8 flex justify-center">
         <h3
           className="relative text-3xl font-quicksand font-bold italic text-gray-700 inline-block 
@@ -27,8 +26,6 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({ title, products }) => {
           {title}
         </h3>
       </div>
-
-      {/* Grille de produits */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-screen-xl mx-auto px-4 justify-items-center">
         {products.map(({ id, imageSrc, imageAlt, title, price }) => (
           <Card
