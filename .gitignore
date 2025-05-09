@@ -16,3 +16,9 @@ coverage/
 # OS / Editor files
 .DS_Store
 .vscode/
+
+# Data
+data/
+
+# Scripts
+scripts/

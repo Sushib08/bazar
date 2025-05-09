@@ -21,7 +21,6 @@ const Card: React.FC<CardProps> = ({
         <span className="text-green-600 font-bold">{price}</span>
       </div>
 
-      {/* Bouton Ajouter au panier */}
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10 opacity-0 group-hover:opacity-100 transition duration-300 rounded">
         <button className="px-4 py-2 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600">
           Ajouter au panier
