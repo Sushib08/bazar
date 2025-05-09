@@ -4,14 +4,13 @@ import Partners from "../components/sections/Partners";
 import LoadMoreButton from "../components/elements/LoadMoreButton";
 import ProductsGrid from "../components/sections/ProductsGrid";
 
-// Données mock avec id converti en string pour compatibilité avec ProductsGrid
-const allProducts = Array.from({ length: 20 }, (_, i) => ({
-  id: i.toString(), // ← ici le fix
-  imageSrc: "./images/home/fraises.webp",
-  imageAlt: "fraises",
-  title: `Gariguettes ${i + 1}`,
-  price: "3.5€",
-}));
+interface Product {
+  id: string;
+  imageSrc: string;
+  imageAlt?: string;
+  title: string;
+  price: string;
+}
 
 const getCardsPerRow = (width: number) => {
   if (width >= 1024) return 4;
@@ -25,16 +24,35 @@ const Home: React.FC = () => {
     getCardsPerRow(window.innerWidth)
   );
   const [visibleCount, setVisibleCount] = useState(cardsPerRow * 2);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    const updateLayout = () => {
+    const handleResize = () => {
       const newCardsPerRow = getCardsPerRow(window.innerWidth);
       setCardsPerRow(newCardsPerRow);
       setVisibleCount(newCardsPerRow * 2);
     };
 
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((product: any) => ({
+          id: product._id,
+          imageSrc: product.imageSrc,
+          imageAlt: product.imageAlt || "",
+          title: product.title,
+          price: `${product.price.toFixed(2)} €`,
+        }));
+        setProducts(formatted);
+      })
+      .catch((err) =>
+        console.error("Erreur lors du chargement des produits :", err)
+      );
   }, []);
 
   const loadMore = () => {
@@ -60,12 +78,12 @@ const Home: React.FC = () => {
 
       <ProductsGrid
         title="Tous Nos Produits"
-        products={allProducts.slice(0, visibleCount)}
+        products={products.slice(0, visibleCount)}
       />
 
       <LoadMoreButton
         onClick={loadMore}
-        isVisible={visibleCount < allProducts.length}
+        isVisible={visibleCount < products.length}
       />
 
       <div className="mb-8 flex justify-center">
