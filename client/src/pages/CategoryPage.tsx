@@ -51,7 +51,7 @@ const CategoryPage: React.FC = () => {
           imageSrc: product.imageSrc,
           imageAlt: product.imageAlt || "",
           title: product.title,
-          price: `${product.price.toFixed(2)} €`,
+          price: product.price.toFixed(2),
         }));
         setProducts(formattedProducts);
         setVisibleCount(countPerLoad);

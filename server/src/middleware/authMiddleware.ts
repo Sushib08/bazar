@@ -6,11 +6,16 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-export const protect = (req: Request, res: Response, next: NextFunction) => {
+export const protect = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Not authorized" });
+    res.status(401).json({ message: "Non autorisé" });
+    return;
   }
 
   const token = authHeader.split(" ")[1];
@@ -20,6 +25,6 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     (req as any).user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Invalid token" });
+    res.status(401).json({ message: "Token invalide" });
   }
 };

@@ -6,7 +6,7 @@ interface SectionsProducersProps {
   title: string;
   text: string;
   imageLeft?: boolean;
-  textColor?: string; // nouvelle prop
+  textColor?: string;
 }
 
 const SectionsProducers: React.FC<SectionsProducersProps> = ({
@@ -24,7 +24,6 @@ const SectionsProducers: React.FC<SectionsProducersProps> = ({
           imageLeft ? "md:flex-row-reverse" : ""
         }`}
       >
-        {/* Texte */}
         <div className="w-full md:w-1/2 text-left">
           <h3 className={`font-quicksand font-bold text-3xl mb-4 ${textColor}`}>
             {title}
@@ -32,7 +31,6 @@ const SectionsProducers: React.FC<SectionsProducersProps> = ({
           <p className={`${textColor} leading-relaxed`}>{text}</p>
         </div>
 
-        {/* Image */}
         <div className="w-full md:w-1/2">
           <img
             src={imageSrc}

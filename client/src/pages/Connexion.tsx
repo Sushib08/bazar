@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "../contexts/UserContext"; // contexte global
+import { useUser } from "../contexts/UserContext";
 
 const Connexion: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +8,7 @@ const Connexion: React.FC = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const { login } = useUser(); // récupère la fonction login du contexte
+  const { login } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +33,6 @@ const Connexion: React.FC = () => {
         setError(data.message || "Erreur de connexion.");
         setSuccess("");
       } else {
-        // ✅ stocke dans le contexte et localStorage
         login({
           firstName: data.user.firstName,
           token: data.token,
@@ -41,7 +40,7 @@ const Connexion: React.FC = () => {
 
         setError("");
         setSuccess("Connexion réussie !");
-        navigate("/"); // redirection vers la home
+        navigate("/");
       }
     } catch (err) {
       setError("Une erreur est survenue.");
