@@ -10,6 +10,7 @@ import Inscription from "./pages/Inscription";
 import Cart from "./pages/Cart";
 import CategoryPage from "./pages/CategoryPage";
 import Store from "./pages/Store";
+import Profil from "./pages/Profil";
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/magasins" element={<Store />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/inscription" element={<Inscription />} />
+          <Route path="/profil" element={<Profil />} />
           <Route path="/panier" element={<Cart />} />
         </Routes>
       </main>
