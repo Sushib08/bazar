@@ -29,6 +29,16 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     if (firstName && token) {
       setUser({ firstName, token });
     }
+
+    const handleBeforeUnload = () => {
+      logout();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   const login = (userData: User) => {
@@ -38,6 +48,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = () => {
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).catch((err) => console.error("Erreur lors du logout serveur", err));
+    }
+
     localStorage.removeItem("userFirstName");
     localStorage.removeItem("authToken");
     setUser(null);

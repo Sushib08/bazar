@@ -67,7 +67,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         email: user.email,
       },
       JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "1h" }
     );
 
     res.json({
@@ -82,4 +82,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err });
   }
+};
+
+export const logout = (req: Request, res: Response): void => {
+  res.status(200).json({ message: "Déconnexion effectuée avec succès." });
 };
