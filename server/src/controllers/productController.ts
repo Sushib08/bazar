@@ -20,3 +20,24 @@ export const getAllProducts = async (_req: Request, res: Response) => {
     res.status(500).json({ message: "Erreur serveur", error });
   }
 };
+
+export const searchProducts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const q = req.query.q as string;
+    if (!q || q.length < 2) {
+      res.status(400).json({ message: "Query too short." });
+      return;
+    }
+
+    const products = await Product.find({
+      title: { $regex: q, $options: "i" },
+    }).limit(10);
+
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err });
+  }
+};
