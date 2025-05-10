@@ -30,6 +30,15 @@ const ConnexionButton = () => {
         <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-10">
           <button
             onClick={() => {
+              navigate("/profil");
+              setShowMenu(false);
+            }}
+            className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+          >
+            Voir profil
+          </button>
+          <button
+            onClick={() => {
               logout();
               setShowMenu(false);
               navigate("/");
